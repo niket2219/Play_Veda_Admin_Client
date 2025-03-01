@@ -14,11 +14,12 @@ const Sessions = () => {
 
   useEffect(() => {
     fetchSessions();
+    console.log(`${process.env.REACT_APP_SERVER}/api/sessions`);
   }, []);
 
   const fetchSessions = () => {
     axios
-      .get("http://127.0.0.1:5000/api/sessions")
+      .get(`${process.env.REACT_APP_SERVER}/api/sessions`)
       .then((response) => {
         console.log("Sessions Data:", response.data.sessions);
         setSessions(response.data.sessions);

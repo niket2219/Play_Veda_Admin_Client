@@ -21,7 +21,7 @@ const CardList = () => {
 
   const fetchCards = () => {
     axios
-      .get("http://127.0.0.1:5000/api/cards")
+      .get(`${process.env.REACT_APP_SERVER}/api/cards`)
       .then((response) => setCards(response.data?.cards || []))
       .catch((error) => console.error("Error fetching cards:", error));
   };
@@ -33,7 +33,7 @@ const CardList = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://127.0.0.1:5000/api/cards/${id}`)
+      .delete(`${process.env.REACT_APP_SERVER}/api/cards/${id}`)
       .then(() => fetchCards())
       .catch((error) => console.error("Error deleting card:", error));
   };

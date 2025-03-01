@@ -4,7 +4,7 @@ import ViewModal from "./ViewModal";
 import EditModal from "./EditModal";
 import CreateModal from "./CreateModal";
 
-const CardItem = ({ data, refresh }) => {
+const CardItem = ({ data, refresh, handleDelete }) => {
   const { details_button, location } = data;
   const [showView, setShowView] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -29,9 +29,12 @@ const CardItem = ({ data, refresh }) => {
           <Button variant="warning" size="sm" onClick={() => setShowEdit(true)}>
             <i className="bi bi-pencil"></i>
           </Button>
-          <Button variant="danger" size="sm">
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => handleDelete(data.id)}
+          >
             <i className="bi bi-trash"></i>
-          </Button>
+          </button>
         </Card.Body>
       </Card>
 

@@ -52,7 +52,7 @@ const EditModal = ({ show, handleClose, data, refresh }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.put(
-      `http://127.0.0.1:5000/api/cards2/${data.id}`,
+      `${process.env.REACT_APP_SERVER}/api/cards2/${data.id}`,
       formData
     );
     console.log(res);
@@ -130,7 +130,7 @@ const EditModal = ({ show, handleClose, data, refresh }) => {
                       size="sm"
                       onClick={() => handleRemoveImage(index)}
                     >
-                      ❌
+                      -
                     </Button>
                   </td>
                 </tr>

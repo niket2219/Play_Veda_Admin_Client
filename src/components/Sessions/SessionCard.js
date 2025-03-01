@@ -17,7 +17,7 @@ const SessionCard = ({ session, refresh }) => {
   const deleteSession = async (sessionId) => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:5000/api/sessions/${sessionId}`
+        `${process.env.REACT_APP_SERVER}/api/sessions/${sessionId}`
       );
       console.log("Session deleted:", response.data);
       return response.data;

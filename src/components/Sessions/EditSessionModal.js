@@ -104,7 +104,7 @@ const EditSessionModal = ({ session = {}, onClose, refresh }) => {
   const updateSession = async (sessionId, updatedData) => {
     try {
       const response = await axios.put(
-        `http://127.0.0.1:5000/api/sessions/update/${sessionId}`,
+        `${process.env.REACT_APP_SERVER}/api/sessions/update/${sessionId}`,
         updatedData
       );
       return response.data;

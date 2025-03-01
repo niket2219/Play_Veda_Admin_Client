@@ -116,7 +116,10 @@ const CreateSessionModal = ({ onClose, refresh }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:5000/api/sessions", formData);
+      await axios.post(
+        `${process.env.REACT_APP_SERVER}/api/sessions`,
+        formData
+      );
       onClose();
       window.location.reload();
     } catch (error) {

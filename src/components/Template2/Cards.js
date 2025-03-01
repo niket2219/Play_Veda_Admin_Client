@@ -17,7 +17,7 @@ const LilaCardList = () => {
 
   const fetchLilaCards = () => {
     axios
-      .get("http://127.0.0.1:5000/api/cards2")
+      .get(`${process.env.REACT_APP_SERVER}/api/cards2`)
       .then((response) => {
         console.log("Cards Data:", response.data);
         setSessions(response.data);
@@ -25,6 +25,13 @@ const LilaCardList = () => {
       .catch((error) => {
         console.error("Error fetching sessions:", error);
       });
+  };
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`${process.env.REACT_APP_SERVER}/api/cards2/${id}`)
+      .then(() => fetchLilaCards())
+      .catch((error) => console.error("Error deleting card:", error));
   };
   return (
     <>
@@ -36,6 +43,7 @@ const LilaCardList = () => {
               key={session.id}
               data={session}
               refresh={fetchLilaCards}
+              handleDelete={handleDelete}
             />
           ))}
         </div>

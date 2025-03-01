@@ -3,6 +3,7 @@ import Cards from "./components/Template1/Card";
 import CardList2 from "./components/Template2/Cards";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Home from "./Home";
+import { useEffect } from "react";
 
 function App() {
   return (

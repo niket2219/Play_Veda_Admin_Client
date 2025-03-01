@@ -39,7 +39,7 @@ const CreateModal = ({ show, onHide, refresh }) => {
 
   const handleSubmit = () => {
     axios
-      .post("http://127.0.0.1:5000/api/cards", formData)
+      .post(`${process.env.REACT_APP_SERVER}/api/cards`, formData)
       .then(() => {
         refresh();
         onHide();

@@ -51,7 +51,7 @@ const EditModal = ({ show, onHide, card, refresh }) => {
 
   const handleSubmit = () => {
     axios
-      .put(`http://127.0.0.1:5000/api/cards/${card.id}`, formData)
+      .put(`${process.env.REACT_APP_SERVER}/api/cards/${card.id}`, formData)
       .then(() => {
         refresh();
         onHide();

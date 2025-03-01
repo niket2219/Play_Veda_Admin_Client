@@ -1,5 +1,6 @@
 import Sessions from "./components/Sessions/Sessions";
 import Cards from "./components/Template1/Card";
+import CardList2 from "./components/Template2/Cards";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Home from "./Home";
 
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sessions" element={<Sessions />} />
         <Route path="/cards1" element={<Cards />} />
+        <Route path="/cards2" element={<CardList2 />} />
       </Routes>
     </BrowserRouter>
   );

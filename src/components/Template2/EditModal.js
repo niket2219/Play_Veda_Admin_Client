@@ -1,34 +1,26 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Table } from "react-bootstrap";
 import axios from "axios";
-
-// Dummy image upload function that returns a simulated URL
-const UploadImage = (file) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const dummyUrl = `https://example.com/${file.name}`;
-      resolve(dummyUrl);
-    }, 1000);
-  });
-};
+import UploadImage from "../../Services/Cloudinary";
 
 const EditModal = ({ show, handleClose, data, refresh }) => {
+  const [uploading, setuploading] = useState(false);
   const [formData, setFormData] = useState({
     location: data.location,
     details_button: data.details_button === "true",
     images: data.images || [],
   });
 
-  // Handle Image Upload
   const handleImageUpload = (file, index) => {
+    setuploading(true);
     UploadImage(file).then((newUrl) => {
       const newImages = [...formData.images];
       newImages[index] = newUrl;
       setFormData({ ...formData, images: newImages });
     });
+    setuploading(false);
   };
 
-  // Handle Input Changes (Location, Details Button)
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -37,18 +29,15 @@ const EditModal = ({ show, handleClose, data, refresh }) => {
     });
   };
 
-  // Remove Image Entry
   const handleRemoveImage = (index) => {
     const newImages = formData.images.filter((_, i) => i !== index);
     setFormData({ ...formData, images: newImages });
   };
 
-  // Add New Image Entry
   const handleAddImage = () => {
     setFormData({ ...formData, images: [...formData.images, ""] });
   };
 
-  // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.put(
@@ -66,6 +55,27 @@ const EditModal = ({ show, handleClose, data, refresh }) => {
         <Modal.Title>Edit Details</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {uploading && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 1050,
+            }}
+          >
+            <div
+              className="spinner-border text-light"
+              style={{ width: "4rem", height: "4rem" }}
+            ></div>
+          </div>
+        )}
         <Form onSubmit={handleSubmit}>
           {/* Location Input */}
           <Form.Group controlId="location">

@@ -1,31 +1,24 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Table } from "react-bootstrap";
 import axios from "axios";
-
-// Dummy image upload function that returns a simulated URL
-const UploadImage = (file) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const dummyUrl = `https://example.com/${file.name}`;
-      resolve(dummyUrl);
-    }, 1000);
-  });
-};
+import UploadImage from "../../Services/Cloudinary";
 
 const CreateModal = ({ show, handleClose, refresh }) => {
+  const [uploading, setuploading] = useState(false);
   const [formData, setFormData] = useState({
     location: "",
     details_button: false,
     images: [],
   });
 
-  // Handle Image Upload
   const handleImageUpload = (file, index) => {
+    setuploading(true);
     UploadImage(file).then((newUrl) => {
       const newImages = [...formData.images];
       newImages[index] = newUrl;
       setFormData({ ...formData, images: newImages });
     });
+    setuploading(false);
   };
 
   // Handle Input Changes (Location, Details Button)
@@ -70,6 +63,27 @@ const CreateModal = ({ show, handleClose, refresh }) => {
         <Modal.Title>Add New Entry</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {uploading && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 1050,
+            }}
+          >
+            <div
+              className="spinner-border text-light"
+              style={{ width: "4rem", height: "4rem" }}
+            ></div>
+          </div>
+        )}
         <Form onSubmit={handleSubmit}>
           {/* Location Input */}
           <Form.Group controlId="location">

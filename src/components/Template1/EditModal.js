@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import UploadImage from "../../Services/Cloudinary";
 
 const EditModal = ({ show, onHide, card, refresh }) => {
   const [uploading, setuploading] = useState(false);
@@ -31,19 +32,11 @@ const EditModal = ({ show, onHide, card, refresh }) => {
     });
   };
 
-  const handleImg = (file) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("https://via.placeholder.com/150");
-      }, 2000);
-    });
-  };
-
   const handleImgUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setuploading(true);
-      const dummyUrl = await handleImg(file);
+      const dummyUrl = await UploadImage(file);
       setFormData((prev) => ({ ...prev, imgUrl: dummyUrl }));
       setuploading(false);
     }

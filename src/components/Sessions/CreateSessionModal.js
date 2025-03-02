@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Table } from "react-bootstrap";
 import axios from "axios";
+import UploadImage from "../../Services/Cloudinary";
 
 const CreateSessionModal = ({ onClose, refresh }) => {
   const [uploading, setUploading] = useState(false);
@@ -34,14 +35,6 @@ const CreateSessionModal = ({ onClose, refresh }) => {
     }));
   };
 
-  const uploadImg = (file) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("sttps://www.example.com");
-      }, 3000);
-    });
-  };
-
   const handleImageUpload = async (index, files) => {
     if (files.length > 0) {
       const file = files[0];
@@ -49,7 +42,7 @@ const CreateSessionModal = ({ onClose, refresh }) => {
       setUploading(true);
 
       try {
-        const uploadedUrl = await uploadImg(file);
+        const uploadedUrl = await UploadImage(file);
 
         setFormData((prevData) => ({
           ...prevData,

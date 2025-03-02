@@ -36,7 +36,7 @@ const LilaCardList = () => {
   return (
     <>
       <div className="container mt-4 mb-4">
-        <h2 className="mb-3">Sessions</h2>
+        <h2 className="mb-3">Card Template 2</h2>
         <div className="row gy-4">
           {sessions.map((session) => (
             <CardItem

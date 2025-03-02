@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import SessionCard from "./SessionCard";
 import axios from "axios";
-import EditSessionModal from "./EditSessionModal";
 import CreateSessionModal from "./CreateSessionModal";
 
 const Sessions = () => {
   const [sessions, setSessions] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [loadingData, setloadingData] = useState(false);
 
   const handleModalToggle = () => {
     setShowAddModal(!showAddModal);
@@ -18,6 +18,7 @@ const Sessions = () => {
   }, []);
 
   const fetchSessions = () => {
+    setloadingData(true);
     axios
       .get(`${process.env.REACT_APP_SERVER}/api/sessions`)
       .then((response) => {
@@ -27,12 +28,35 @@ const Sessions = () => {
       .catch((error) => {
         console.error("Error fetching sessions:", error);
       });
+    setloadingData(false);
   };
   return (
     <>
       <div className="container mt-4 mb-4">
         <h2 className="mb-3">Sessions</h2>
+
         <div className="row gy-4">
+          {loadingData && (
+            <div
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(255, 255, 255, 0.5)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: 1050,
+              }}
+            >
+              <div
+                className="spinner-border text-primary"
+                style={{ width: "4rem", height: "4rem" }}
+              ></div>
+            </div>
+          )}
           {sessions.map((session) => (
             <SessionCard
               key={session.id}

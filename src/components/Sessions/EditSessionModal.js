@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Form, Table, Spinner } from "react-bootstrap";
+import { Modal, Button, Form, Table } from "react-bootstrap";
 import axios from "axios";
 import UploadImage from "../../Services/Cloudinary";
 
@@ -100,12 +100,12 @@ const EditSessionModal = ({ session = {}, onClose, refresh }) => {
         `${process.env.REACT_APP_SERVER}/api/sessions/update/${sessionId}`,
         updatedData
       );
+      refresh();
       return response.data;
     } catch (error) {
       console.error("Error updating session:", error);
       throw error;
     }
-    refresh();
   };
 
   const handleSubmit = (e) => {

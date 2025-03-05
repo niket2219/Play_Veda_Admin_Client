@@ -17,8 +17,8 @@ const EditModal = ({ show, handleClose, data, refresh }) => {
       const newImages = [...formData.images];
       newImages[index] = newUrl;
       setFormData({ ...formData, images: newImages });
+      setuploading(false);
     });
-    setuploading(false);
   };
 
   const handleInputChange = (e) => {

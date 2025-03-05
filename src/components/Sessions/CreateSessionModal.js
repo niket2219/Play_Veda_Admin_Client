@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form, Table } from "react-bootstrap";
 import axios from "axios";
 import UploadImage from "../../Services/Cloudinary";
+import HashLoader from "react-spinners/HashLoader";
 
 const CreateSessionModal = ({ onClose, refresh }) => {
   const [uploading, setUploading] = useState(false);
@@ -114,11 +115,9 @@ const CreateSessionModal = ({ onClose, refresh }) => {
         formData
       );
       onClose();
-      window.location.reload();
     } catch (error) {
       console.error("Error creating session:", error);
     }
-    // console.log(formData);
     refresh();
   };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SessionCard from "./SessionCard";
 import axios from "axios";
 import CreateSessionModal from "./CreateSessionModal";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const Sessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -24,11 +25,12 @@ const Sessions = () => {
       .then((response) => {
         console.log("Sessions Data:", response.data.sessions);
         setSessions(response.data.sessions);
+        setloadingData(false);
       })
       .catch((error) => {
         console.error("Error fetching sessions:", error);
+        setloadingData(false);
       });
-    setloadingData(false);
   };
   return (
     <>
@@ -38,25 +40,29 @@ const Sessions = () => {
         <div className="row gy-4">
           {loadingData && (
             <div
+              className="loader-container"
               style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
                 position: "fixed",
                 top: 0,
                 left: 0,
                 width: "100%",
                 height: "100%",
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 1050,
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
+                zIndex: 9999,
               }}
             >
-              <div
-                className="spinner-border text-primary"
-                style={{ width: "4rem", height: "4rem" }}
-              ></div>
+              <ScaleLoader
+                color={"black"}
+                loading={loadingData}
+                size={150}
+                aria-label="Loading Sessions"
+              />
             </div>
           )}
+
           {sessions.map((session) => (
             <SessionCard
               key={session.id}

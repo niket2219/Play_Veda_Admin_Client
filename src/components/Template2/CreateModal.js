@@ -21,7 +21,6 @@ const CreateModal = ({ show, handleClose, refresh }) => {
     setuploading(false);
   };
 
-  // Handle Input Changes (Location, Details Button)
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -30,18 +29,15 @@ const CreateModal = ({ show, handleClose, refresh }) => {
     });
   };
 
-  // Remove Image Entry
   const handleRemoveImage = (index) => {
     const newImages = formData.images.filter((_, i) => i !== index);
     setFormData({ ...formData, images: newImages });
   };
 
-  // Add New Image Entry
   const handleAddImage = () => {
     setFormData({ ...formData, images: [...formData.images, ""] });
   };
 
-  // Handle Form Submission (Create New Entry)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

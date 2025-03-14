@@ -10,10 +10,16 @@ const ViewModal = ({ show, onHide, card }) => (
       {card ? (
         <>
           <p>
-            <strong>Title:</strong> {card?.title ?? "N/A"}
+            <strong>Title : </strong> {card?.title ?? "N/A"}
           </p>
           <p>
-            <strong>Description:</strong> {card?.description ?? "N/A"}
+            <strong>Description : </strong> {card?.description ?? "N/A"}
+          </p>
+          <p>
+            <strong>Display Type : </strong> {card?.display ?? "N/A"}
+          </p>
+          <p>
+            <strong>Screen Order :</strong> {card?.order ?? "N/A"}
           </p>
           <p>
             <strong>Status:</strong>{" "}

@@ -11,6 +11,8 @@ const EditModal = ({ show, onHide, card, refresh }) => {
     description: "",
     isComingSoon: false,
     imgUrl: "",
+    display: "",
+    order: 0,
   });
 
   useEffect(() => {
@@ -20,6 +22,8 @@ const EditModal = ({ show, onHide, card, refresh }) => {
         description: card.description || "",
         isComingSoon: card.comingSoon || false,
         imgUrl: card.imgUrl || "",
+        display: card.display || "",
+        order: card.order || 0,
       });
     }
   }, [card]);
@@ -95,6 +99,24 @@ const EditModal = ({ show, onHide, card, refresh }) => {
               as="textarea"
               name="description"
               value={formData.description}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mt-3">
+            <Form.Label>Display Type</Form.Label>
+            <Form.Control
+              type="text"
+              name="display"
+              value={formData.display}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mt-3">
+            <Form.Label>Screen Order</Form.Label>
+            <Form.Control
+              type="number"
+              name="order"
+              value={formData.order}
               onChange={handleChange}
             />
           </Form.Group>

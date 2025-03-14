@@ -6,9 +6,13 @@ import UploadImage from "../../Services/Cloudinary";
 const CreateModal = ({ show, handleClose, refresh }) => {
   const [uploading, setuploading] = useState(false);
   const [formData, setFormData] = useState({
+    title: "",
+    subtitle: "",
     location: "",
     details_button: false,
     images: [],
+    display: "",
+    order: 0,
   });
 
   const handleImageUpload = (file, index) => {
@@ -17,8 +21,8 @@ const CreateModal = ({ show, handleClose, refresh }) => {
       const newImages = [...formData.images];
       newImages[index] = newUrl;
       setFormData({ ...formData, images: newImages });
+      setuploading(false);
     });
-    setuploading(false);
   };
 
   const handleInputChange = (e) => {
@@ -39,6 +43,7 @@ const CreateModal = ({ show, handleClose, refresh }) => {
   };
 
   const handleSubmit = async (e) => {
+    console.log(formData);
     e.preventDefault();
     try {
       const res = await axios.post(
@@ -81,8 +86,32 @@ const CreateModal = ({ show, handleClose, refresh }) => {
           </div>
         )}
         <Form onSubmit={handleSubmit}>
-          {/* Location Input */}
-          <Form.Group controlId="location">
+          <Form.Group controlId="title">
+            <Form.Label>
+              <strong>Title</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="subtitle" className="mt-3">
+            <Form.Label>
+              <strong>SubTitle</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="subtitle"
+              value={formData.subtitle}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="location" className="mt-3">
             <Form.Label>
               <strong>Location</strong>
             </Form.Label>
@@ -91,11 +120,35 @@ const CreateModal = ({ show, handleClose, refresh }) => {
               name="location"
               value={formData.location}
               onChange={handleInputChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="display" className="mt-3">
+            <Form.Label>
+              <strong>Display Type</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="display"
+              value={formData.display}
+              onChange={handleInputChange}
               required
             />
           </Form.Group>
 
-          {/* Details Button Checkbox */}
+          <Form.Group controlId="order" className="mt-3">
+            <Form.Label>
+              <strong>Screen Order</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="order"
+              value={formData.order}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
           <Form.Group controlId="details_button" className="mt-3">
             <Form.Check
               type="checkbox"
@@ -106,7 +159,6 @@ const CreateModal = ({ show, handleClose, refresh }) => {
             />
           </Form.Group>
 
-          {/* Images Table */}
           <h5 className="mt-4">Images</h5>
           <Table bordered className="mt-2">
             <thead>
@@ -119,12 +171,10 @@ const CreateModal = ({ show, handleClose, refresh }) => {
             <tbody>
               {formData.images.map((img, index) => (
                 <tr key={index}>
-                  {/* Image URL Column */}
                   <td>
                     <Form.Control type="text" value={img} readOnly />
                   </td>
 
-                  {/* File Upload Column */}
                   <td>
                     <Form.Control
                       type="file"
@@ -137,7 +187,6 @@ const CreateModal = ({ show, handleClose, refresh }) => {
                     />
                   </td>
 
-                  {/* Delete Button Column */}
                   <td className="text-center">
                     <Button
                       variant="danger"

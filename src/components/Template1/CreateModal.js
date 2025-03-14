@@ -9,7 +9,9 @@ const CreateModal = ({ show, onHide, refresh }) => {
     title: "",
     description: "",
     isComingSoon: false,
-    imgUrl: "", // Added image field
+    imgUrl: "",
+    display: "",
+    order: 0,
   });
 
   const handleChange = (e) => {
@@ -35,6 +37,7 @@ const CreateModal = ({ show, onHide, refresh }) => {
       .post(`${process.env.REACT_APP_SERVER}/api/cards`, formData)
       .then(() => {
         refresh();
+
         onHide();
       })
       .catch((error) => console.error("Error creating card:", error));
@@ -92,6 +95,24 @@ const CreateModal = ({ show, onHide, refresh }) => {
               label="Coming Soon"
               name="isComingSoon"
               checked={formData.isComingSoon}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mt-3">
+            <Form.Label>Display Type</Form.Label>
+            <Form.Control
+              type="text"
+              name="display"
+              value={formData.display}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mt-3">
+            <Form.Label>Screen Order</Form.Label>
+            <Form.Control
+              type="number"
+              name="order"
+              value={formData.order}
               onChange={handleChange}
             />
           </Form.Group>

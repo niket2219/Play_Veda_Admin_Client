@@ -6,9 +6,13 @@ import UploadImage from "../../Services/Cloudinary";
 const EditModal = ({ show, handleClose, data, refresh }) => {
   const [uploading, setuploading] = useState(false);
   const [formData, setFormData] = useState({
+    title: data.title || "",
+    subtitle: data.subtitle || "",
     location: data.location,
     details_button: data.details_button === "true",
     images: data.images || [],
+    display: data.display || "",
+    order: data.order || 0,
   });
 
   const handleImageUpload = (file, index) => {
@@ -77,6 +81,31 @@ const EditModal = ({ show, handleClose, data, refresh }) => {
           </div>
         )}
         <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="title">
+            <Form.Label>
+              <strong>Title</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="subtitle" className="mt-3">
+            <Form.Label>
+              <strong>SubTitle</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="subtitle"
+              value={formData.subtitle}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
           {/* Location Input */}
           <Form.Group controlId="location">
             <Form.Label>
@@ -86,6 +115,32 @@ const EditModal = ({ show, handleClose, data, refresh }) => {
               type="text"
               name="location"
               value={formData.location}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="display" className="mt-3">
+            <Form.Label>
+              <strong>Display Type</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="display"
+              value={formData.display}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="order" className="mt-3">
+            <Form.Label>
+              <strong>Screen Order</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="order"
+              value={formData.order}
               onChange={handleInputChange}
               required
             />
